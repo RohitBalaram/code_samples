@@ -7,10 +7,12 @@ def geo_json_builder(data):
     current = 0
     length = len(data)
     
-    color_map = [('#000205', .4), ('#02142a', .45), 
-                 ('#052550', .45), ('#073675', .5),
-                 ('#09479a', .55), ('#0b58bf', .6), 
-                 ('#0d69e4', .6)]
+    color_map = [
+        ('#000205', .4), ('#02142a', .45), 
+        ('#052550', .45), ('#073675', .5),
+        ('#09479a', .55), ('#0b58bf', .6), 
+        ('#0d69e4', .6)
+    ]
                  
     max_count = data[0][6]
     min_count = data[0][5]
@@ -28,6 +30,9 @@ def geo_json_builder(data):
             color = color_map[cur_count-1]
             if x[2] == min_count:
                 color = color_map[0]
+            
+            percentage = str(int(x[2]/float(total) * 100)) + '%'
+            
             feature = {
                 "type": "Feature",
                 "properties": {
@@ -36,7 +41,7 @@ def geo_json_builder(data):
                     "Count": x[2],
                     "fillColor": color[0],
                     "fillOpacity": color[1],
-                    "percentage": str(int(x[2]/float(total) * 100)) + '%'
+                    "percentage": percentage
 
                 },
                 "geometry": {
